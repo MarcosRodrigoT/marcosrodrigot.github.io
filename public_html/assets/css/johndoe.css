@@ -11666,7 +11666,7 @@ pre .code {
 
 .contact .contact-form-card,
 .contact .contact-info-card {
-  padding: 35px;
+  padding: 0 35px;
   background: #fff;
   min-height: 500px;
 }
