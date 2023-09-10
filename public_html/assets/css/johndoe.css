@@ -11088,6 +11088,11 @@ p {
   color: #6c757d;
 }
 
+.card .card-body .university {
+  font-size: 14px;
+  color: #F85C70;
+}
+
 .price-card {
   padding: 30px;
   border: 1px solid #dee2e6;
