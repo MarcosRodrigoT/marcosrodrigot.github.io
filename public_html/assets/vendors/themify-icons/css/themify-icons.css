@@ -1079,3 +1079,12 @@
 .ti-rss-alt:before {
 	content: "\e75f";
 }
+.ti-stack-overflow {
+	content: "\e760"
+}
+.ti-youtube {
+	content: "\e761"
+}
+.ti-linkedin {
+	content: "\e762"
+}
