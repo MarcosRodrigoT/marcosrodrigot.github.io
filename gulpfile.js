@@ -1,6 +1,6 @@
 // node.js Packages / Dependencies
 const gulp          = require('gulp');
-const sass          = require('gulp-sass');
+const gulpSass      = require('gulp-sass')(require('sass'));
 const uglify        = require('gulp-uglify');
 const rename        = require('gulp-rename');
 const concat        = require('gulp-concat');
@@ -16,30 +16,30 @@ const clean         = require('gulp-clean');
 // Paths
 var paths = {
     root: { 
-        www:        './public_html'
+        www:        './'
     },
     src: {
-        root:       'public_html/assets',
-        html:       'public_html/**/*.html',
-        css:        'public_html/assets/css/*.css',
-        js:         'public_html/assets/js/*.js',
-        vendors:    'public_html/assets/vendors/**/*.*',
-        imgs:       'public_html/assets/imgs/**/*.+(png|jpg|gif|svg)',
-        scss:       'public_html/assets/scss/**/*.scss'
+        root:       'assets',
+        html:       './*.html',
+        css:        'assets/css/*.css',
+        js:         'assets/js/*.js',
+        vendors:    'assets/vendors/**/*.*',
+        imgs:       'assets/imgs/**/*.+(png|jpg|gif|svg)',
+        scss:       'assets/scss/**/*.scss'
     },
     dist: {
-        root:       'public_html/dist',
-        css:        'public_html/dist/css',
-        js:         'public_html/dist/js',
-        imgs:       'public_html/dist/imgs',
-        vendors:    'public_html/dist/vendors'
+        root:       'dist',
+        css:        'dist/css',
+        js:         'dist/js',
+        imgs:       'dist/imgs',
+        vendors:    'dist/vendors'
     }
 }
 
 // Compile SCSS
 gulp.task('sass', function() {
     return gulp.src(paths.src.scss)
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError)) 
+    .pipe(gulpSass({outputStyle: 'expanded'}).on('error', gulpSass.logError)) 
     .pipe(autoprefixer())
     .pipe(gulp.dest(paths.src.root + '/css'))
     .pipe(browserSync.stream());
@@ -105,3 +105,8 @@ gulp.task('watch', function() {
     gulp.watch(paths.src.js).on('change', browserSync.reload);
     gulp.watch(paths.src.html).on('change', browserSync.reload);
 });
+
+// ❸ Default dev task ─────────────────────────────────────────────
+// - first compile Sass so BrowserSync has fresh CSS
+// - then start the file-watcher / live-reload loop
+gulp.task('default', gulp.series('sass', 'watch'));
