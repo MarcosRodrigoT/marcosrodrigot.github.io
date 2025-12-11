@@ -33,25 +33,33 @@ $(document).ready(function(){
 
 // portfolio filters
 $(window).on("load", function() {
-    var t = $(".portfolio-container");
-    t.isotope({
-        filter: ".new",
+    var container = $(".portfolio-container");
+
+    // Initialize Isotope
+    container.isotope({
+        filter: '*',
         animationOptions: {
             duration: 750,
             easing: "linear",
-            queue: !1
+            queue: false
         }
-    }), $(".filters a").click(function() {
-        $(".filters .active").removeClass("active"), $(this).addClass("active");
-        var i = $(this).attr("data-filter");
-        return t.isotope({
-            filter: i,
+    });
+
+    // Filter click handler
+    $(".filters a").click(function() {
+        $(".filters .active").removeClass("active");
+        $(this).addClass("active");
+
+        var selector = $(this).attr("data-filter");
+        container.isotope({
+            filter: selector,
             animationOptions: {
                 duration: 750,
                 easing: "linear",
-                queue: !1
+                queue: false
             }
-        }), !1
+        });
+        return false;
     });
 });
 

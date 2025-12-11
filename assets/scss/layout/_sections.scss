@@ -6,6 +6,123 @@
     }
 }
 
+// Flip Card Animation for Portfolio
+.flip-card {
+    perspective: 1000px;
+    height: 320px;
+    margin-bottom: 30px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.flip-card-front {
+    background: #fff;
+
+    img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-content {
+        padding: 15px;
+
+        .title {
+            color: $primary;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
+        }
+    }
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, darken($primary, 10%) 0%, $primary 100%);
+    color: white;
+    transform: rotateY(180deg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .back-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        border-bottom: 2px solid rgba(255,255,255,0.3);
+        padding-bottom: 10px;
+        color: white;
+    }
+
+    .back-description {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        flex-grow: 1;
+        overflow-y: auto;
+        color: white;
+    }
+
+    .back-tech {
+        font-size: 11px;
+        color: rgba(255,255,255,0.95);
+
+        strong {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+        }
+    }
+
+    .back-link {
+        margin-top: 10px;
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 5px 15px;
+            border: 1px solid white;
+            border-radius: 20px;
+            transition: all 0.3s;
+
+            &:hover {
+                background: white;
+                color: $primary;
+            }
+        }
+    }
+}
+
 .about-section {
     border-bottom: 1px solid $border-color;
 
