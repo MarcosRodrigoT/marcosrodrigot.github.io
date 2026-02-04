@@ -11175,3 +11175,23 @@ pre .code {
   display: block;
   margin-top: 10px;
 }
+
+/* Custom overrides for mobile responsiveness */
+
+/* Profile picture in header for mobile */
+.header-profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 991.98px) {
+  /* Fix excessive padding before Contact section on mobile */
+  .contact {
+    padding: 40px 0 !important;
+  }
+}
