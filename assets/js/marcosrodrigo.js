@@ -56,6 +56,109 @@ $(window).on("load", function() {
 });
 
 
+// ──────────────────────────────────────────────
+// Dark Mode Toggle
+// ──────────────────────────────────────────────
+(function() {
+    var toggle = document.getElementById('theme-toggle');
+    var iconLight = toggle.querySelector('.theme-icon-light');
+    var iconDark = toggle.querySelector('.theme-icon-dark');
+    var html = document.documentElement;
+
+    function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+
+        if (theme === 'dark') {
+            iconLight.style.display = 'none';
+            iconDark.style.display = 'inline';
+        } else {
+            iconLight.style.display = 'inline';
+            iconDark.style.display = 'none';
+        }
+    }
+
+    // Initialize: only apply dark if explicitly saved
+    var saved = localStorage.getItem('theme');
+    if (saved) {
+        setTheme(saved);
+    }
+
+    toggle.addEventListener('click', function() {
+        var current = html.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+// ──────────────────────────────────────────────
+// Scroll Animations: Section Reveals + Progress Bars
+// ──────────────────────────────────────────────
+(function() {
+    // --- Section Reveal ---
+    var revealElements = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(function(el) {
+            revealObserver.observe(el);
+        });
+    } else {
+        // Fallback: reveal everything immediately
+        revealElements.forEach(function(el) {
+            el.classList.add('revealed');
+        });
+    }
+
+    // --- Progress Bar Animation ---
+    var progressBars = document.querySelectorAll('.progress-bar');
+
+    // Store target widths and reset to 0
+    progressBars.forEach(function(bar) {
+        var targetWidth = bar.style.width || bar.getAttribute('aria-valuenow') + '%';
+        bar.setAttribute('data-width', targetWidth);
+        bar.style.width = '0%';
+    });
+
+    if ('IntersectionObserver' in window && progressBars.length > 0) {
+        var resumeSection = document.getElementById('resume');
+
+        if (resumeSection) {
+            var progressObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        progressBars.forEach(function(bar, index) {
+                            setTimeout(function() {
+                                bar.style.width = bar.getAttribute('data-width');
+                            }, index * 100);
+                        });
+                        progressObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            progressObserver.observe(resumeSection);
+        }
+    } else {
+        // Fallback: set widths immediately
+        progressBars.forEach(function(bar) {
+            bar.style.width = bar.getAttribute('data-width');
+        });
+    }
+})();
+
 // google maps
 function initMap() {
 // Styles a map in night mode.

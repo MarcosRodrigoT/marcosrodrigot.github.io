@@ -89,3 +89,195 @@
     padding: 40px 0 !important;
   }
 }
+
+// ──────────────────────────────────────────────
+// CSS Custom Properties (Light Mode Defaults)
+// ──────────────────────────────────────────────
+:root {
+  --bg-body: #fff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: #fff;
+  --bg-custom-gray: rgba(242, 244, 247, 0.15);
+  --bg-input: #fff;
+  --bg-progress: #{$gray-200};
+
+  --text-primary: #{$gray-900};
+  --text-secondary: #444;
+  --text-card: #{$gray-600};
+  --text-muted: #{$gray-600};
+  --text-heading: #{$gray-800};
+
+  --border-color: #{$gray-300};
+
+  --navbar-bg: #fff;
+  --navbar-shadow: 0 1px 10px rgba(54, 54, 54, 0.18);
+  --navbar-brand-border: white;
+  --navbar-brand-subtitle: #888;
+
+  --contact-card-bg: #fff;
+  --flip-card-front-bg: #fff;
+  --flip-card-subtitle: #333;
+
+  --social-link-dark: #{$gray-800};
+}
+
+// ──────────────────────────────────────────────
+// Dark Mode Overrides
+// ──────────────────────────────────────────────
+[data-theme="dark"] {
+  --bg-body: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: #1f2937;
+  --bg-custom-gray: rgba(22, 33, 62, 0.4);
+  --bg-input: #2a2a4a;
+  --bg-progress: #2a2a4a;
+
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-card: #c0c0c0;
+  --text-muted: #999;
+  --text-heading: #e8e8e8;
+
+  --border-color: #2d3748;
+
+  --navbar-bg: #1a1a2e;
+  --navbar-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  --navbar-brand-border: #1a1a2e;
+  --navbar-brand-subtitle: #999;
+
+  --contact-card-bg: #1f2937;
+  --flip-card-front-bg: #1f2937;
+  --flip-card-subtitle: #c0c0c0;
+
+  --social-link-dark: #e0e0e0;
+}
+
+// Smooth transition for theme switching
+body,
+.navbar,
+.card,
+.contact-form-card,
+.contact-info-card,
+.flip-card-front,
+.form-control,
+.progress {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+// ──────────────────────────────────────────────
+// Dark Mode: Bootstrap Utility Overrides
+// ──────────────────────────────────────────────
+[data-theme="dark"] {
+  .navbar.bg-white {
+    background-color: var(--navbar-bg) !important;
+  }
+
+  .text-dark {
+    color: var(--text-primary) !important;
+  }
+
+  .text-muted {
+    color: var(--text-muted) !important;
+  }
+
+  .form-control {
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+
+    &::placeholder {
+      color: var(--text-muted);
+    }
+  }
+
+  .progress {
+    background-color: var(--bg-progress);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-heading);
+  }
+
+  .social-link.text-dark {
+    color: var(--social-link-dark) !important;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: var(--text-primary);
+
+    &:hover, &:focus {
+      color: $primary;
+    }
+  }
+
+  .navbar-light .navbar-toggler {
+    border-color: var(--border-color);
+  }
+
+  .navbar-light .navbar-toggler-icon {
+    filter: invert(1);
+  }
+}
+
+// ──────────────────────────────────────────────
+// Dark Mode: Toggle Button
+// ──────────────────────────────────────────────
+.theme-toggle-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  color: var(--text-primary);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.15);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $primary;
+  }
+}
+
+// ──────────────────────────────────────────────
+// Scroll Animations: Section Reveals
+// ──────────────────────────────────────────────
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// ──────────────────────────────────────────────
+// Scroll Animations: Progress Bars
+// ──────────────────────────────────────────────
+.progress-bar {
+  transition: width 1s ease-out;
+}
+
+// Respect reduced motion preferences
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .progress-bar {
+    transition: none;
+  }
+}

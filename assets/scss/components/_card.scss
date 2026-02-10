@@ -1,5 +1,6 @@
 .card {
     margin-bottom: 30px;
+    background-color: var(--bg-card);
 
 
     .card-header {
@@ -9,10 +10,10 @@
         &.has-icon {
 
         	i {
-        		background: $white;
+        		background: var(--bg-card);
         		position: absolute;
 		        top: -28px;
-		        border: 7px solid white;
+		        border: 7px solid var(--bg-card);
 		        overflow: hidden !important;
 		        font-size: 35px;
         	}
@@ -20,7 +21,7 @@
     }
     .card-body {
         font-size: 14px;
-        color: $gray-600;
+        color: var(--text-card);
     }
 }
 
@@ -102,8 +103,8 @@
 
 .portfolio {
 
-    .filters {       
-        border-bottom: 2px solid $border-color;
+    .filters {
+        border-bottom: 2px solid var(--border-color);
         border-radius: 0;
         padding-bottom: 4px;
         margin: 0 auto 20px;
@@ -114,7 +115,7 @@
         a {
 			flex-basis: 0;
 			display: block;
-        	color: $body-color;
+        	color: var(--text-primary);
         	font-size: 13px;
         	font-weight: 500;
         	opacity: .7;

@@ -1,10 +1,12 @@
 body {
+	background-color: var(--bg-body);
+	color: var(--text-primary);
 }
 /* typography */
 p {
 	font-size: calc(13px + (14 - 13) * ((100vw - 300px) / (1300 - 300)));
 	opacity: .8;
-	color: #444;
+	color: var(--text-secondary);
 } 
 
 .title {
@@ -30,9 +32,9 @@ p {
     span {
         font-weight: 600;
         font-size: 14px;
-        color: $gray-800;
+        color: var(--text-heading);
     }
-    color: $gray-600;
+    color: var(--text-card);
     font-size: 14px;
 }
 

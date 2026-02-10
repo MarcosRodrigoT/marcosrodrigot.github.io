@@ -10,6 +10,15 @@
         gtag('js', new Date());
         gtag('config', 'G-VRL7V3HYFP');
     </script>
+    <!-- Immediately apply saved theme to prevent flash -->
+    <script>
+        (function() {
+            var t = localStorage.getItem('theme');
+            if (t === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Marcos Rodrigo — Ph.D. Telecommunication Engineer and AI Researcher specializing in deep learning, computer vision, and neural architectures.">
     <meta name="author" content="Marcos Rodrigo">
@@ -85,12 +94,18 @@
                     <li class="nav-item last-item">
                         <a href="#contact" class="nav-link">Contact</a>
                     </li>
+                    <li class="nav-item d-flex align-items-center ml-lg-3">
+                        <button id="theme-toggle" class="btn btn-sm theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+                            <span class="theme-icon-light">&#9788;</span>
+                            <span class="theme-icon-dark" style="display:none;">&#9790;</span>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container-fluid">
-        <div id="about" class="row about-section">
+        <div id="about" class="row about-section reveal">
             <div class="col-lg-4 about-card">
                 <h3 class="font-weight-light">Who am I ?</h3>
                 <span class="line mb-5"></span>
@@ -149,7 +164,7 @@
     </section>
 
     <!-- Resume Section -->
-    <section class="section" id="resume">
+    <section class="section reveal" id="resume">
         <div class="container">
             <h2 class="mb-5"><span class="text-danger">My</span> Resume</h2>
             <div class="row">
@@ -316,7 +331,7 @@
     <!-- End of Dark Band with Icons Section-->
 
     <!-- Portfolio Section -->
-    <section class="section bg-custom-gray" id="portfolio">
+    <section class="section bg-custom-gray reveal" id="portfolio">
         <div class="container">
             <h1 class="mb-5"><span class="text-danger">My</span> Portfolio</h1>
             <div class="portfolio">
@@ -689,7 +704,7 @@
     </section>
 
     <!-- Coming Soon Section -->
-    <section class="section" id="coming-soon">
+    <section class="section reveal" id="coming-soon">
         <div class="container">
             <h2 class="mb-5"><span class="text-danger">Coming</span> Soon</h2>
             <div class="row justify-content-center">
@@ -718,7 +733,7 @@
     </section>
 
     <!-- Contact Me Section -->
-    <div class="section contact" id="contact">
+    <div class="section contact reveal" id="contact">
         <div class="container">
             <h2 class="mb-5"><span class="text-danger">Contact</span> Me</h2>
             <div class="row">

@@ -2,7 +2,7 @@
     padding: 80px 0;
 
     &.bg-custom-gray {
-        background: rgba(#F2F4F7, .15);
+        background: var(--bg-custom-gray);
     }
 }
 
@@ -38,7 +38,7 @@
 }
 
 .flip-card-front {
-    background: #fff;
+    background: var(--flip-card-front-bg);
 
     img {
         width: 100%;
@@ -59,7 +59,7 @@
 
         .subtitle {
             font-size: 14px;
-            color: #333;
+            color: var(--flip-card-subtitle);
             line-height: 1.4;
         }
     }
@@ -124,11 +124,11 @@
 }
 
 .about-section {
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
 
     .about-card {
         padding: 60px;
-        border-right: 1px solid $border-color;
+        border-right: 1px solid var(--border-color);
 
         &:last-child {
             border-right: none;
@@ -150,7 +150,7 @@
         padding: 300px 0 0;
 
         .contact-form-card {
-            border-bottom: 1px solid $border-color;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .contact-form-card,
@@ -170,7 +170,7 @@
     .contact-form-card,
     .contact-info-card {
         padding: 35px;
-        background: $white;
+        background: var(--contact-card-bg);
         min-height: 500px;
     }
 

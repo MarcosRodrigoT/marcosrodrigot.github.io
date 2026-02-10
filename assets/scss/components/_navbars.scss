@@ -1,5 +1,5 @@
 .navbar {
-    @include shadow();
+    box-shadow: var(--navbar-shadow);
     
     .navbar-nav:first-child .nav-item:first-child .nav-link {
         padding-left: 0;
@@ -27,7 +27,7 @@
             top: 50%;
             transform: translate(-50%,-50%);
             -weblit-transform: translate(-50%,-50%);
-            border: 10px solid white;
+            border: 10px solid var(--navbar-brand-border);
             transition: .5s !important;
             -weblit-transition: .5s !important;
             z-index: 2;
@@ -46,7 +46,7 @@
 
             .brand-subtitle{
                 font-size: 13px;
-                color: #888;
+                color: var(--navbar-brand-subtitle);
             }
         }
 
