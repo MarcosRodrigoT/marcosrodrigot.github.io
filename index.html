@@ -35,6 +35,8 @@
     <meta name="twitter:title" content="Marcos Rodrigo — AI Researcher & Engineer">
     <meta name="twitter:description" content="Ph.D. Telecommunication Engineer specializing in deep learning, computer vision, and neural architectures.">
     <meta name="twitter:image" content="https://marcosrodrigot.github.io/assets/imgs/Marcos.jpg">
+    <!-- Chessboard.js styles -->
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
     <!-- font icons -->
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + Marcos Rodrigo main styles -->
@@ -45,6 +47,7 @@
     <a href="components.html" class="btn btn-primary btn-component" data-spy="affix" data-offset-top="600"><i class="ti-shift-left-alt"></i> Components</a>
     -->
     <header class="header">
+        <canvas id="nn-canvas"></canvas>
         <div class="container">
             <ul class="social-icons pt-3">
                 <li class="social-item"><a class="social-link text-light" href="mailto:marcosrodrigo5@hotmail.com"><i class="ti-email" aria-hidden="true"></i></a></li>
@@ -81,7 +84,7 @@
                     <img src="assets/imgs/Marcos.jpg" alt="" class="brand-img">
                     <li class="brand-txt">
                         <h5 class="brand-title">Marcos Rodrigo</h5>
-                        <div class="brand-subtitle">Telecommunication Engineer | AI Developer</div>
+                        <div class="brand-subtitle">Ph.D. Telecommunication Engineer | AI Researcher</div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -725,6 +728,23 @@
                     </div>
                 </div>
             </div>
+            <!-- Chess Puzzle -->
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-6 col-md-8 text-center">
+                    <div class="card p-4 chess-puzzle-card">
+                        <h4 class="font-weight-light mb-2">
+                            <span class="text-danger">&#9823;</span> Chess Puzzle
+                        </h4>
+                        <div id="chess-info" class="mb-3"></div>
+                        <div id="chess-board" style="width: 100%; max-width: 400px; margin: 0 auto;"></div>
+                        <div id="chess-feedback" class="mt-3" style="min-height: 40px;"></div>
+                        <div class="mt-2">
+                            <button id="chess-reset" class="btn btn-outline-danger btn-sm">Reset Puzzle</button>
+                            <button id="chess-solution" class="btn btn-outline-secondary btn-sm ml-2">View Solution</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- End of Coming Soon Section -->
@@ -816,6 +836,16 @@
     
     <!-- Google mpas -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtme10pzgKSPeJVJrG1O3tjR6lk98o4w8&callback=initMap"></script>
+
+    <!-- Chess libraries (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+
+    <!-- Chess Puzzle -->
+    <script src="assets/js/chess-puzzle.js"></script>
+
+    <!-- Neural Network Background -->
+    <script src="assets/js/neural-network.js"></script>
 
     <!-- Marcos Rodrigo js -->
     <script src="assets/js/marcosrodrigo.js"></script>
