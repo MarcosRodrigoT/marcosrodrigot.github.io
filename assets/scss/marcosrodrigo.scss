@@ -323,6 +323,29 @@ body,
   color: $purple;
 }
 
+// Numeric difficulty levels 1-10
+.chess-difficulty-level-1,
+.chess-difficulty-level-2,
+.chess-difficulty-level-3 {
+  background-color: rgba(163, 193, 74, 0.15);
+  color: $green;
+}
+
+.chess-difficulty-level-4,
+.chess-difficulty-level-5,
+.chess-difficulty-level-6,
+.chess-difficulty-level-7 {
+  background-color: rgba(248, 92, 112, 0.12);
+  color: $primary;
+}
+
+.chess-difficulty-level-8,
+.chess-difficulty-level-9,
+.chess-difficulty-level-10 {
+  background-color: rgba(161, 106, 232, 0.15);
+  color: $purple;
+}
+
 .chess-feedback-msg {
   display: inline-block;
   padding: 8px 16px;
@@ -355,12 +378,27 @@ body,
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  // Ensure pieces are clickable for click-to-move functionality
+  img {
+    pointer-events: auto !important;
+    cursor: pointer;
+  }
+
+  .square-55d63 {
+    cursor: pointer;
+  }
 }
 
 [data-theme="dark"] {
   #chess-board {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   }
+}
+
+// Chess click-to-move selected square
+.chess-square-selected {
+  box-shadow: inset 0 0 0 3px rgba(248, 92, 112, 0.8) !important;
 }
 
 // Chess hint arrow

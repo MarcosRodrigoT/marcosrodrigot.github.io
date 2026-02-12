@@ -7,56 +7,113 @@
 (function() {
     'use strict';
 
-    // ── Puzzle Collection (increasing difficulty) ──────
+    // ── Puzzle Collection (Pin Tactics - Easy to Difficult) ──────
+    // Puzzles from chess.com focusing on the pin tactic
+    // Moves with auto:true are opponent responses played automatically
     var PUZZLES = [
         {
-            // Puzzle 1 - Easy: Back rank mate in 1
-            // White Rook delivers mate on the back rank
-            fen: '6k1/5ppp/8/8/8/8/5PPP/R3K3 w - - 0 1',
-            solutionFrom: 'a1',
-            solutionTo: 'a8',
+            // Puzzle 1 - Re1 pins the black queen to the king
+            fen: 'r3k2r/ppp2ppp/8/8/4q3/8/PPP2PPP/R2Q1RK1 w - - 0 1',
+            solution: [
+                { from: 'f1', to: 'e1' }
+            ],
             orientation: 'white',
-            difficulty: 'Easy',
-            hint: 'The back rank is undefended!'
+            difficulty: 1,
+            hint: 'The black queen is on the same file as the king!'
         },
         {
-            // Puzzle 2 - Easy: Knight fork winning the queen
-            fen: 'r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 0 5',
-            solutionFrom: 'f3',
-            solutionTo: 'g5',
-            orientation: 'white',
-            difficulty: 'Easy',
-            hint: 'Attack two pieces at once!'
+            // Puzzle 2 - Bd5 pins the white rook to the king
+            fen: '8/5bp1/5k2/8/4R3/8/7P/7K b - - 0 1',
+            solution: [
+                { from: 'f7', to: 'd5' }
+            ],
+            orientation: 'black',
+            difficulty: 2,
+            hint: 'The white rook is on the same diagonal as the king!'
         },
         {
-            // Puzzle 3 - Intermediate: Smothered mate setup
-            // White sacrifices queen then delivers knight mate
-            fen: 'r5rk/5Npp/8/8/8/8/1Q3PPP/6K1 w - - 0 1',
-            solutionFrom: 'b2',
-            solutionTo: 'g7',
+            // Puzzle 3 - Bb5 pins the queen to the king
+            fen: 'r1b1kbnr/ppp2ppp/2qp4/4n3/4P3/2N2N2/PPP2PPP/R1BQKB1R w KQkq - 0 1',
+            solution: [
+                { from: 'f1', to: 'b5' }
+            ],
             orientation: 'white',
-            difficulty: 'Intermediate',
-            hint: 'A queen sacrifice leads to mate!'
+            difficulty: 3,
+            hint: 'The black queen is exposed on the a4-e8 diagonal!'
         },
         {
-            // Puzzle 4 - Intermediate: Fried Liver knight fork
-            // Nxf7 forks the Black queen on d8 and rook on h8
-            fen: 'r1bqkb1r/ppp2ppp/2n5/3np1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 0 6',
-            solutionFrom: 'g5',
-            solutionTo: 'f7',
+            // Puzzle 4 - Rxe4, Rxe4, Bd3 pins the rook to the king
+            fen: '4r3/1p5k/p6p/2p3p1/2P1n1P1/P7/1P2R2P/2K2B2 w - - 0 1',
+            solution: [
+                { from: 'e2', to: 'e4' },
+                { from: 'e8', to: 'e4', auto: true },
+                { from: 'f1', to: 'd3' }
+            ],
             orientation: 'white',
-            difficulty: 'Intermediate',
-            hint: 'The f7 square is weak — exploit it with a fork!'
+            difficulty: 4,
+            hint: 'Clear the way first, then set up the pin!'
         },
         {
-            // Puzzle 5 - Hard: Morphy's Opera Game queen sacrifice
-            // Qb8+! Nxb8 Rd8# — a legendary combination
-            fen: '4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w - - 0 16',
-            solutionFrom: 'b3',
-            solutionTo: 'b8',
+            // Puzzle 5 - Bc7 pins the rook to the king
+            fen: '8/5k2/1b6/4R3/2P5/8/7K/8 b - - 0 1',
+            solution: [
+                { from: 'b6', to: 'c7' }
+            ],
+            orientation: 'black',
+            difficulty: 5,
+            hint: 'Find the diagonal that runs through the rook and the king!'
+        },
+        {
+            // Puzzle 6 - Qa1 pins the rook to the king on the long diagonal
+            fen: '7k/3n1p1p/6p1/5p2/3r4/6PP/6PK/7Q w - - 0 1',
+            solution: [
+                { from: 'h1', to: 'a1' }
+            ],
             orientation: 'white',
-            difficulty: 'Hard',
-            hint: 'Think like Morphy! Sometimes the queen must be sacrificed.'
+            difficulty: 6,
+            hint: 'The a1-h8 diagonal is very long!'
+        },
+        {
+            // Puzzle 7 - Rd4 pins the knight to the king
+            fen: '3k4/8/8/3n4/1R6/5K2/8/8 w - - 0 1',
+            solution: [
+                { from: 'b4', to: 'd4' }
+            ],
+            orientation: 'white',
+            difficulty: 7,
+            hint: 'The knight and king are on the same file!'
+        },
+        {
+            // Puzzle 8 - d5 attacks the pinned knight (pinned by Bb5)
+            fen: 'r1bqkb1r/1pp2ppp/2np1n2/pB2p3/3PP3/2N2N2/PPP2PPP/R1BQK2R w KQkq - 0 1',
+            solution: [
+                { from: 'd4', to: 'd5' }
+            ],
+            orientation: 'white',
+            difficulty: 8,
+            hint: 'One of the knights cannot move. Attack it!'
+        },
+        {
+            // Puzzle 9 - Bb4 pins the queen to the king
+            fen: 'r2qkbnr/ppp2ppp/2n5/3pp3/4P1b1/2QP1N2/PPP1BPPP/RNB1K2R b KQkq - 0 1',
+            solution: [
+                { from: 'f8', to: 'b4' }
+            ],
+            orientation: 'black',
+            difficulty: 9,
+            hint: 'The white queen and king are on the same diagonal!'
+        },
+        {
+            // Puzzle 10 - Bc7 pins, then Kf6 attacks the rook
+            fen: '8/5k2/1b6/4R3/2P5/6K1/8/8 b - - 0 1',
+            solution: [
+                { from: 'b6', to: 'c7' },
+                { from: 'g3', to: 'f4', auto: true },
+                { from: 'f7', to: 'f6' }
+            ],
+            orientation: 'black',
+            difficulty: 10,
+            hint: 'Pin the rook first, then bring your king to attack it!'
         }
     ];
 
@@ -64,6 +121,9 @@
     var game = null;
     var currentPuzzle = 0;
     var puzzleSolved = false;
+    var selectedSquare = null;
+    var moveIndex = 0;
+    var waitingForAuto = false;  // True while an auto-response is being animated
 
     function init() {
         var boardEl = document.getElementById('chess-board');
@@ -81,6 +141,16 @@
             solutionBtn.addEventListener('click', showSolution);
         }
 
+        // Click handler for empty squares (pieces are handled by onDrop)
+        boardEl.addEventListener('click', function(e) {
+            var squareEl = e.target.closest('[data-square]');
+            if (!squareEl) return;
+            var sq = squareEl.getAttribute('data-square');
+            if (selectedSquare && sq) {
+                handleSquareClick(sq);
+            }
+        });
+
         $(window).on('resize', function() {
             if (board) board.resize();
         });
@@ -94,6 +164,8 @@
 
         currentPuzzle = index;
         puzzleSolved = false;
+        moveIndex = 0;
+        waitingForAuto = false;
         var puzzle = PUZZLES[index];
 
         game = new Chess(puzzle.fen);
@@ -121,6 +193,8 @@
         var solutionBtn = document.getElementById('chess-solution');
         if (solutionBtn) solutionBtn.style.display = '';
 
+        selectedSquare = null;
+        clearSelection();
         updateInfo();
         clearFeedback();
     }
@@ -129,8 +203,8 @@
         var puzzle = PUZZLES[currentPuzzle];
         var infoEl = document.getElementById('chess-info');
         if (infoEl) {
-            var sideToMove = puzzle.orientation === 'white' ? 'White' : 'Black';
-            infoEl.innerHTML = '<span class="chess-difficulty chess-difficulty-' + puzzle.difficulty.toLowerCase() + '">' +
+            var sideToMove = game.turn() === 'w' ? 'White' : 'Black';
+            infoEl.innerHTML = '<span class="chess-difficulty chess-difficulty-level-' + puzzle.difficulty + '">Level ' +
                 puzzle.difficulty + '</span> &mdash; Puzzle ' + (currentPuzzle + 1) + '/' + PUZZLES.length +
                 '<br><small class="text-muted">' + sideToMove + ' to move. Find the best move!</small>';
         }
@@ -139,45 +213,191 @@
     function onDragStart(source, piece) {
         if (puzzleSolved) return false;
         if (game.game_over()) return false;
+        if (waitingForAuto) return false;
 
-        var puzzle = PUZZLES[currentPuzzle];
-        if (puzzle.orientation === 'white' && piece.search(/^b/) !== -1) return false;
-        if (puzzle.orientation === 'black' && piece.search(/^w/) !== -1) return false;
+        var turn = game.turn();
+        var isOwn = (turn === 'w' && piece.search(/^w/) !== -1) ||
+                    (turn === 'b' && piece.search(/^b/) !== -1);
+
+        // If we have a selected piece and click on an opponent's piece,
+        // treat it as a move attempt (capture)
+        if (selectedSquare && !isOwn) {
+            handleSquareClick(source);
+            return false;
+        }
+
+        // Don't allow dragging opponent's pieces
+        if (!isOwn) return false;
+
+        // Clear selection when starting a real drag
+        clearHintArrow();
     }
 
     function onDrop(source, target) {
-        clearHintArrow();
-        var puzzle = PUZZLES[currentPuzzle];
+        if (waitingForAuto) return 'snapback';
 
-        if (source === puzzle.solutionFrom && target === puzzle.solutionTo) {
+        // Click detection: user clicked a piece without dragging
+        if (source === target) {
+            handleSquareClick(source);
+            return 'snapback';
+        }
+
+        // Real drag-and-drop move
+        clearHintArrow();
+        clearSelection();
+        selectedSquare = null;
+
+        return tryMove(source, target);
+    }
+
+    function onSnapEnd() {
+        board.position(game.fen());
+    }
+
+    // ── Shared move attempt logic ────
+    function tryMove(from, to) {
+        var puzzle = PUZZLES[currentPuzzle];
+        var expectedMove = puzzle.solution[moveIndex];
+        if (!expectedMove) {
+            return 'snapback';
+        }
+
+        if (from === expectedMove.from && to === expectedMove.to) {
             var move = game.move({
-                from: source,
-                to: target,
-                promotion: 'q'
+                from: from,
+                to: to,
+                promotion: expectedMove.promotion || 'q'
             });
 
             if (move === null) return 'snapback';
 
-            puzzleSolved = true;
+            moveIndex++;
 
-            if (currentPuzzle < PUZZLES.length - 1) {
-                showFeedback('Correct! Loading next puzzle...', 'success');
-                setTimeout(function() {
-                    loadPuzzle(currentPuzzle + 1);
-                }, 2000);
+            // Check if puzzle is complete
+            if (moveIndex >= puzzle.solution.length) {
+                onPuzzleSolved();
             } else {
-                showFeedback('Brilliant! You solved all puzzles!', 'success');
-                showAllSolved();
+                // Check if the next move is an auto-response
+                var nextMove = puzzle.solution[moveIndex];
+                if (nextMove && nextMove.auto) {
+                    showFeedback('Good move!', 'success');
+                    playAutoResponse();
+                } else {
+                    showFeedback('Good move! Continue...', 'success');
+                    updateInfo();
+                }
             }
-            return;
+            return;  // Accept the drop
         }
 
         showFeedback('Not quite. Try again!', 'error');
         return 'snapback';
     }
 
-    function onSnapEnd() {
-        board.position(game.fen());
+    // ── Play opponent's auto-response move ────
+    function playAutoResponse() {
+        var puzzle = PUZZLES[currentPuzzle];
+        var autoMove = puzzle.solution[moveIndex];
+        if (!autoMove || !autoMove.auto) return;
+
+        waitingForAuto = true;
+
+        setTimeout(function() {
+            var move = game.move({
+                from: autoMove.from,
+                to: autoMove.to,
+                promotion: autoMove.promotion || 'q'
+            });
+
+            if (move) {
+                board.position(game.fen());
+                moveIndex++;
+
+                // Check if puzzle is complete after auto-response
+                if (moveIndex >= puzzle.solution.length) {
+                    waitingForAuto = false;
+                    onPuzzleSolved();
+                } else {
+                    waitingForAuto = false;
+                    showFeedback('Your turn!', 'success');
+                    updateInfo();
+                }
+            } else {
+                waitingForAuto = false;
+            }
+        }, 600);
+    }
+
+    // ── Puzzle completion ────
+    function onPuzzleSolved() {
+        puzzleSolved = true;
+        if (currentPuzzle < PUZZLES.length - 1) {
+            showFeedback('Correct! Loading next puzzle...', 'success');
+            setTimeout(function() {
+                loadPuzzle(currentPuzzle + 1);
+            }, 2000);
+        } else {
+            showFeedback('Brilliant! You solved all puzzles!', 'success');
+            showAllSolved();
+        }
+    }
+
+    // ── Click-to-move handling logic ────
+    function handleSquareClick(square) {
+        if (puzzleSolved) return;
+        if (game.game_over()) return;
+        if (waitingForAuto) return;
+
+        var puzzle = PUZZLES[currentPuzzle];
+        var piece = game.get(square);
+        var turn = game.turn();
+        var isOwn = piece && piece.color === turn;
+
+        if (selectedSquare) {
+            if (square === selectedSquare) {
+                // Click same square — deselect
+                clearSelection();
+                selectedSquare = null;
+                return;
+            }
+
+            // If clicking another own piece, re-select it
+            if (isOwn) {
+                clearSelection();
+                selectedSquare = square;
+                highlightSquare(square);
+                return;
+            }
+
+            // Try the move via click
+            clearHintArrow();
+            var result = tryMove(selectedSquare, square);
+            if (result !== 'snapback') {
+                // Move succeeded — update board
+                board.position(game.fen());
+            }
+            clearSelection();
+            selectedSquare = null;
+        } else {
+            // No piece selected yet — select one if it's the right color
+            if (isOwn) {
+                selectedSquare = square;
+                highlightSquare(square);
+            }
+        }
+    }
+
+    function highlightSquare(square) {
+        clearSelection();
+        var el = document.querySelector('#chess-board [data-square="' + square + '"]');
+        if (el) el.classList.add('chess-square-selected');
+    }
+
+    function clearSelection() {
+        var els = document.querySelectorAll('.chess-square-selected');
+        for (var i = 0; i < els.length; i++) {
+            els[i].classList.remove('chess-square-selected');
+        }
     }
 
     function showFeedback(message, type) {
@@ -236,25 +456,22 @@
         var card = document.querySelector('.chess-puzzle-card');
         if (!card) return;
 
-        // Trophy overlay on top of the board
         var overlay = document.createElement('div');
         overlay.className = 'chess-victory-overlay';
         overlay.innerHTML =
             '<div class="chess-victory-trophy">&#9813;</div>' +
             '<div class="chess-victory-title">Grandmaster!</div>' +
-            '<div class="chess-victory-subtitle">You solved all 5 puzzles</div>';
+            '<div class="chess-victory-subtitle">You solved all ' + PUZZLES.length + ' puzzles</div>';
 
         var boardEl = document.getElementById('chess-board');
         if (boardEl) {
             boardEl.style.position = 'relative';
             boardEl.appendChild(overlay);
-            // Trigger animation after a frame
             requestAnimationFrame(function() {
                 overlay.classList.add('visible');
             });
         }
 
-        // Confetti canvas scoped to the card
         card.style.position = 'relative';
         card.style.overflow = 'hidden';
 
@@ -352,6 +569,7 @@
 
     function showSolution() {
         if (puzzleSolved) return;
+        if (waitingForAuto) return;
         clearHintArrow();
 
         var puzzle = PUZZLES[currentPuzzle];
@@ -362,10 +580,9 @@
         var size = boardRect.width;
         var sqSize = size / 8;
 
-        // Convert algebraic square (e.g. 'g5') to pixel center
         function squareToXY(sq) {
-            var file = sq.charCodeAt(0) - 97; // a=0 .. h=7
-            var rank = parseInt(sq[1], 10) - 1; // 1=0 .. 8=7
+            var file = sq.charCodeAt(0) - 97;
+            var rank = parseInt(sq[1], 10) - 1;
             var x, y;
             if (puzzle.orientation === 'white') {
                 x = file * sqSize + sqSize / 2;
@@ -377,8 +594,12 @@
             return { x: x, y: y };
         }
 
-        var from = squareToXY(puzzle.solutionFrom);
-        var to = squareToXY(puzzle.solutionTo);
+        // Show arrow for the current expected move (skip auto moves)
+        var currentMove = puzzle.solution[moveIndex];
+        if (!currentMove || currentMove.auto) return;
+
+        var from = squareToXY(currentMove.from);
+        var to = squareToXY(currentMove.to);
 
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('class', 'chess-hint-arrow');
@@ -386,31 +607,26 @@
         svg.setAttribute('height', size);
         svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
 
-        // Lichess-style thick filled arrow shape
         var dx = to.x - from.x;
         var dy = to.y - from.y;
         var len = Math.sqrt(dx * dx + dy * dy);
-        var nx = dx / len;  // unit vector along arrow
+        var nx = dx / len;
         var ny = dy / len;
-        var px = -ny;       // perpendicular vector
+        var px = -ny;
         var py = nx;
 
-        var bodyW = sqSize * 0.13;  // shaft half-width
-        var headW = sqSize * 0.3;   // arrowhead half-width
-        var headL = sqSize * 0.6;   // arrowhead length
-        var margin = sqSize * 0.2;  // inset from square centers
+        var bodyW = sqSize * 0.13;
+        var headW = sqSize * 0.3;
+        var headL = sqSize * 0.6;
+        var margin = sqSize * 0.2;
 
-        // Shaft start (inset from source center)
         var sx = from.x + nx * margin;
         var sy = from.y + ny * margin;
-        // Shaft end / arrowhead base (headL back from destination)
         var bx = to.x - nx * (headL + margin * 0.3);
         var by = to.y - ny * (headL + margin * 0.3);
-        // Arrowhead tip (inset from destination center)
         var tx = to.x - nx * margin * 0.3;
         var ty = to.y - ny * margin * 0.3;
 
-        // 7-point polygon: shaft (4 corners) + arrowhead (3 points)
         var points = [
             (sx + px * bodyW) + ',' + (sy + py * bodyW),
             (bx + px * bodyW) + ',' + (by + py * bodyW),
