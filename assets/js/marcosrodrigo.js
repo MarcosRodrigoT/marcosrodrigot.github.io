@@ -98,6 +98,7 @@ $(window).on("load", function() {
     var revealElements = document.querySelectorAll('.reveal');
 
     if ('IntersectionObserver' in window) {
+        var isMobile = window.innerWidth <= 768;
         var revealObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
@@ -106,8 +107,8 @@ $(window).on("load", function() {
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: isMobile ? 0.02 : 0.1,
+            rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -50px 0px'
         });
 
         revealElements.forEach(function(el) {
