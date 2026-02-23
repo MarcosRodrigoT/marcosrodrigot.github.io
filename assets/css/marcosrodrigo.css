@@ -11111,16 +11111,6 @@ pre .code {
 .about-section .about-card:last-child {
   border-right: none;
 }
-@media (max-width: 991.98px) {
-  .about-section .about-card {
-    padding: 30px 30px;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .about-section .about-card:last-child {
-    border-bottom: none;
-  }
-}
 
 .contact {
   position: relative;
@@ -11354,17 +11344,6 @@ body,
   -webkit-transform: translateY(0);
       -ms-transform: translateY(0);
           transform: translateY(0);
-}
-@media (max-width: 768px) {
-  .reveal {
-    -webkit-transform: translateY(15px);
-        -ms-transform: translateY(15px);
-            transform: translateY(15px);
-    -webkit-transition: opacity 0.4s ease-out, -webkit-transform 0.4s ease-out;
-    transition: opacity 0.4s ease-out, -webkit-transform 0.4s ease-out;
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
-  }
 }
 
 .progress-bar {
