@@ -27,9 +27,15 @@ $(document).ready(function(){
 $(window).on("load", function() {
     var container = $(".portfolio-container");
 
-    // Initialize Isotope
+    // Initialize Isotope with chronological sorting
     container.isotope({
         filter: '*',
+        sortBy: 'order',
+        getSortData: {
+            order: function(itemElem) {
+                return -parseInt($(itemElem).attr('data-order'));
+            }
+        },
         animationOptions: {
             duration: 750,
             easing: "linear",
@@ -45,6 +51,7 @@ $(window).on("load", function() {
         var selector = $(this).attr("data-filter");
         container.isotope({
             filter: selector,
+            sortBy: 'order',
             animationOptions: {
                 duration: 750,
                 easing: "linear",
