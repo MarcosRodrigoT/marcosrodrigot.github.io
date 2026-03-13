@@ -11013,6 +11013,9 @@ pre .code {
 .flip-card-front {
   background: var(--flip-card-front-bg);
 }
+.flip-card-front picture {
+  display: block;
+}
 .flip-card-front img {
   width: 100%;
   height: 200px;

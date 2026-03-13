@@ -40,6 +40,10 @@
 .flip-card-front {
     background: var(--flip-card-front-bg);
 
+    picture {
+        display: block;
+    }
+
     img {
         width: 100%;
         height: 200px;
