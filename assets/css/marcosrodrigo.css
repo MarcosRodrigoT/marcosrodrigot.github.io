@@ -10919,7 +10919,21 @@ pre .code {
   letter-spacing: 5px;
   font-weight: 500;
   font-size: calc(12px + 7 * (100vw - 300px) / 1300);
-  margin-bottom: 40px;
+  margin-bottom: 14px;
+}
+.header .header-content .header-focus {
+  font-weight: 500;
+  font-size: calc(12px + 5 * (100vw - 300px) / 1300);
+  letter-spacing: 0.5px;
+  margin-bottom: 36px;
+  white-space: nowrap;
+  color: #fff;
+  opacity: 1;
+}
+@media (max-width: 767.98px) {
+  .header .header-content .header-focus {
+    white-space: normal;
+  }
 }
 @media (max-width: 767.98px) {
   .header {
