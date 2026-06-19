@@ -44,8 +44,8 @@ $(window).on("load", function() {
     });
 
     // Filter click handler
-    $(".filters a").click(function() {
-        $(".filters .active").removeClass("active");
+    $("#portfolio .filters a").click(function() {
+        $("#portfolio .filters .active").removeClass("active");
         $(this).addClass("active");
 
         var selector = $(this).attr("data-filter");
@@ -58,6 +58,28 @@ $(window).on("load", function() {
                 queue: false
             }
         });
+        return false;
+    });
+});
+
+
+// ──────────────────────────────────────────────
+// Hobbies Section Tabs (Info / Chess / Books / Acrobatics / Boxing)
+// ──────────────────────────────────────────────
+$(function() {
+    $("#hobbies .filters a").click(function() {
+        $("#hobbies .filters .active").removeClass("active");
+        $(this).addClass("active");
+
+        var tab = $(this).attr("data-tab");
+        $("#hobbies .hobby-panel").hide();
+        $('#hobbies .hobby-panel[data-panel="' + tab + '"]').show();
+
+        // The chess board renders at zero size while its panel is hidden,
+        // so recalculate it the first time the Chess tab becomes visible.
+        if (tab === "chess") {
+            $(window).trigger("resize");
+        }
         return false;
     });
 });
