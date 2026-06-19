@@ -7,113 +7,137 @@
 (function() {
     'use strict';
 
-    // ── Puzzle Collection (Pin Tactics - Easy to Difficult) ──────
-    // Puzzles from chess.com focusing on the pin tactic
-    // Moves with auto:true are opponent responses played automatically
+    // ── Puzzle Collection (curated from the Lichess puzzle database) ──
+    // Ten puzzles of increasing rating (~740 → ~2480) and varied tactical
+    // motifs: hanging piece, smothered mate, fork, discovered attack,
+    // attraction, pin, skewer, sacrifice + promotion, mate in 3, mate in 4.
+    // Moves with auto:true are opponent responses played automatically.
     var PUZZLES = [
         {
-            // Puzzle 1 - Re1 pins the black queen to the king
-            fen: 'r3k2r/ppp2ppp/8/8/4q3/8/PPP2PPP/R2Q1RK1 w - - 0 1',
+            // Puzzle 1 (Lichess 27K6c, rating 737) — Bxd2
+            fen: '4r1k1/pp4bp/6p1/8/8/4B1QP/PP1q2PK/8 w - - 0 36',
             solution: [
-                { from: 'f1', to: 'e1' }
+                { from: 'e3', to: 'd2' }
             ],
             orientation: 'white',
             difficulty: 1,
-            hint: 'The black queen is on the same file as the king!'
+            hint: 'An enemy piece is undefended. Win it.'
         },
         {
-            // Puzzle 2 - Bd5 pins the white rook to the king
-            fen: '8/5bp1/5k2/8/4R3/8/7P/7K b - - 0 1',
+            // Puzzle 2 (Lichess 1TPIP, rating 850) — Nf7#
+            fen: 'r1b3nk/1q1p2pp/p1nB3N/1p2p3/4P3/2P5/P1P2PPP/R3K2R w KQ - 0 20',
             solution: [
-                { from: 'f7', to: 'd5' }
+                { from: 'h6', to: 'f7' }
             ],
-            orientation: 'black',
+            orientation: 'white',
             difficulty: 2,
-            hint: 'The white rook is on the same diagonal as the king!'
+            hint: 'The king is hemmed in by its own pieces. A knight delivers the blow.'
         },
         {
-            // Puzzle 3 - Bb5 pins the queen to the king
-            fen: 'r1b1kbnr/ppp2ppp/2qp4/4n3/4P3/2N2N2/PPP2PPP/R1BQKB1R w KQkq - 0 1',
+            // Puzzle 3 (Lichess 0NBOG, rating 1050) — Ne6+ Kf7 Nxd8+
+            fen: 'r1bq1b1r/pp1n2kp/2pp1np1/6N1/4P3/5Q2/PB3PPP/RN3RK1 w - - 4 12',
             solution: [
-                { from: 'f1', to: 'b5' }
+                { from: 'g5', to: 'e6' },
+                { from: 'g7', to: 'f7', auto: true },
+                { from: 'e6', to: 'd8' }
             ],
             orientation: 'white',
             difficulty: 3,
-            hint: 'The black queen is exposed on the a4-e8 diagonal!'
+            hint: 'Find a single move that attacks two targets at once.'
         },
         {
-            // Puzzle 4 - Rxe4, Rxe4, Bd3 pins the rook to the king
-            fen: '4r3/1p5k/p6p/2p3p1/2P1n1P1/P7/1P2R2P/2K2B2 w - - 0 1',
+            // Puzzle 4 (Lichess 0JTkd, rating 1250) — Nxe4 fxe4 Qxg5+
+            fen: 'r2qrbk1/1pp2ppp/p1np1n2/6B1/2BPN3/5P2/PPP2QPP/2KR3R b - - 3 15',
             solution: [
-                { from: 'e2', to: 'e4' },
-                { from: 'e8', to: 'e4', auto: true },
-                { from: 'f1', to: 'd3' }
+                { from: 'f6', to: 'e4' },
+                { from: 'f3', to: 'e4', auto: true },
+                { from: 'd8', to: 'g5' }
             ],
-            orientation: 'white',
+            orientation: 'black',
             difficulty: 4,
-            hint: 'Clear the way first, then set up the pin!'
+            hint: 'Move one piece to unleash an attack from the piece behind it.'
         },
         {
-            // Puzzle 5 - Bc7 pins the rook to the king
-            fen: '8/5k2/1b6/4R3/2P5/8/7K/8 b - - 0 1',
+            // Puzzle 5 (Lichess 0guSM, rating 1450) — Rh2+ Kxh2 Qg2#
+            fen: '5Bk1/p1p3p1/8/3p2q1/3Qp3/1P2P2p/P4Pr1/2R2R1K b - - 0 28',
             solution: [
-                { from: 'b6', to: 'c7' }
+                { from: 'g2', to: 'h2' },
+                { from: 'h1', to: 'h2', auto: true },
+                { from: 'g5', to: 'g2' }
             ],
             orientation: 'black',
             difficulty: 5,
-            hint: 'Find the diagonal that runs through the rook and the king!'
+            hint: 'Lure the enemy king or piece onto a fatal square.'
         },
         {
-            // Puzzle 6 - Qa1 pins the rook to the king on the long diagonal
-            fen: '7k/3n1p1p/6p1/5p2/3r4/6PP/6PK/7Q w - - 0 1',
+            // Puzzle 6 (Lichess 0UN6k, rating 1650) — Rxd6 Qxd6 Bb4
+            fen: '5k2/p2q2p1/2pbRn2/1p6/3P3p/PQ5P/KPPB2P1/5r2 w - - 0 31',
             solution: [
-                { from: 'h1', to: 'a1' }
+                { from: 'e6', to: 'd6' },
+                { from: 'd7', to: 'd6', auto: true },
+                { from: 'd2', to: 'b4' }
             ],
             orientation: 'white',
             difficulty: 6,
-            hint: 'The a1-h8 diagonal is very long!'
+            hint: 'A defending piece cannot move. Pile on the pressure.'
         },
         {
-            // Puzzle 7 - Rd4 pins the knight to the king
-            fen: '3k4/8/8/3n4/1R6/5K2/8/8 w - - 0 1',
+            // Puzzle 7 (Lichess 0Z9Kk, rating 1803) — Rxf1+ Ke8 Qg8+ Kd7 Qxb8
+            fen: '1r3k2/1b2p2p/pq1p2pP/2p3P1/2Q5/8/PPP5/2KR1r2 w - - 0 32',
             solution: [
-                { from: 'b4', to: 'd4' }
+                { from: 'd1', to: 'f1' },
+                { from: 'f8', to: 'e8', auto: true },
+                { from: 'c4', to: 'g8' },
+                { from: 'e8', to: 'd7', auto: true },
+                { from: 'g8', to: 'b8' }
             ],
             orientation: 'white',
             difficulty: 7,
-            hint: 'The knight and king are on the same file!'
+            hint: 'Attack a valuable piece so that capturing it is forced, winning what stands behind.'
         },
         {
-            // Puzzle 8 - d5 attacks the pinned knight (pinned by Bb5)
-            fen: 'r1bqkb1r/1pp2ppp/2np1n2/pB2p3/3PP3/2N2N2/PPP2PPP/R1BQK2R w KQkq - 0 1',
+            // Puzzle 8 (Lichess 1DjQh, rating 1999) — Ne6+ Nxe6 c2 Nd4 c1=Q+
+            fen: '8/4k3/8/2n1P3/3N1K2/2p5/8/8 b - - 1 58',
             solution: [
-                { from: 'd4', to: 'd5' }
+                { from: 'c5', to: 'e6' },
+                { from: 'd4', to: 'e6', auto: true },
+                { from: 'c3', to: 'c2' },
+                { from: 'e6', to: 'd4', auto: true },
+                { from: 'c2', to: 'c1', promotion: 'q' }
             ],
-            orientation: 'white',
+            orientation: 'black',
             difficulty: 8,
-            hint: 'One of the knights cannot move. Attack it!'
+            hint: 'Give up material to open the path to a decisive attack.'
         },
         {
-            // Puzzle 9 - Bb4 pins the queen to the king
-            fen: 'r2qkbnr/ppp2ppp/2n5/3pp3/4P1b1/2QP1N2/PPP1BPPP/RNB1K2R b KQkq - 0 1',
+            // Puzzle 9 (Lichess 319Aa, rating 2201) — Rh2+ Kd3 Rg3+ Kc4 Rc2#
+            fen: '8/pp6/4Qbk1/1B1Pp1p1/PP2Pp2/8/4K3/3R2rr b - - 1 39',
             solution: [
-                { from: 'f8', to: 'b4' }
+                { from: 'h1', to: 'h2' },
+                { from: 'e2', to: 'd3', auto: true },
+                { from: 'g1', to: 'g3' },
+                { from: 'd3', to: 'c4', auto: true },
+                { from: 'h2', to: 'c2' }
             ],
             orientation: 'black',
             difficulty: 9,
-            hint: 'The white queen and king are on the same diagonal!'
+            hint: 'Forced mate in three.'
         },
         {
-            // Puzzle 10 - Bc7 pins, then Kf6 attacks the rook
-            fen: '8/5k2/1b6/4R3/2P5/6K1/8/8 b - - 0 1',
+            // Puzzle 10 (Lichess 2uekG, rating 2483) — g4+ Kh4 Rh2+ Kg5 Bh6+ Kg6 Rg8#
+            fen: '3r4/6b1/p1N1kn2/Pp1p2p1/1P1P4/3QB1NK/2r5/1R3R2 b - - 0 41',
             solution: [
-                { from: 'b6', to: 'c7' },
-                { from: 'g3', to: 'f4', auto: true },
-                { from: 'f7', to: 'f6' }
+                { from: 'g5', to: 'g4' },
+                { from: 'h3', to: 'h4', auto: true },
+                { from: 'c2', to: 'h2' },
+                { from: 'h4', to: 'g5', auto: true },
+                { from: 'g7', to: 'h6' },
+                { from: 'g5', to: 'g6', auto: true },
+                { from: 'd8', to: 'g8' }
             ],
             orientation: 'black',
             difficulty: 10,
-            hint: 'Pin the rook first, then bring your king to attack it!'
+            hint: 'Forced mate in four.'
         }
     ];
 
