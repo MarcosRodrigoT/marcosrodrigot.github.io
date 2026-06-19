@@ -58,3 +58,34 @@ Generate images using **Google Gemini (nano banana)**.
 ```
 1024x1024 pixels, 1:1 square aspect ratio. A stylized digital illustration of a horizontal workflow centered in the frame. On the left, a grid of small rectangular career page tiles in muted blue tones, each with a generic briefcase icon, representing multiple job sources being crawled. Arrows flow rightward into a central AI processing node depicted as a glowing coral brain silhouette with small circuit-line patterns. From the node, three thin parallel paths branch out representing rule scoring (a checklist icon), semantic scoring (clustered dots), and LLM scoring (a chat bubble icon). The paths converge on the right into a single ranked results panel showing five horizontal bars sorted from bright coral at the top to dim blue at the bottom. The entire workflow sits within the central 55% of the image vertically, occupying about 50% of the height. Plain dark background fills the rest. Dark background with blue and coral accents. Clean, modern, semi-realistic tech illustration style.
 ```
+
+## Image Optimization
+
+Every portfolio image ships in **two formats** so visitors download a tiny file while keeping a safe fallback. Each card uses a `<picture>` element:
+
+```html
+<picture>
+    <source srcset="assets/imgs/<name>.webp" type="image/webp">
+    <img src="assets/imgs/<name>.png" alt="<Alt text>" loading="lazy">
+</picture>
+```
+
+- **WebP** (`<name>.webp`) is what modern browsers actually load — typically **~20–65 KB**.
+- **PNG** (`<name>.png`) is only a fallback for old browsers.
+
+**Naming**: lowercase, hyphen-separated, no spaces (e.g. `transformer-llms.png`). The `<source>` and `<img>` share the same base name.
+
+### Recipe
+
+Keep the original **1024×1024** resolution (do **not** downscale). Generate both files from the AI-generated PNG:
+
+```bash
+# 1. WebP companion — what gets served (~40x smaller than the PNG)
+convert <name>.png -quality 80 -define webp:method=6 <name>.webp
+
+# 2. Shrink the PNG fallback in place (preserves high quality, ~75-80% smaller)
+#    pngquant ships with the project's npm deps:
+node_modules/pngquant-bin/vendor/pngquant --strip --quality=70-95 --speed 1 --force --ext .png <name>.png
+```
+
+Requires ImageMagick (`convert`) for the WebP step; `pngquant` comes from the `pngquant-bin` npm package. After this, drop both files in `assets/imgs/` and reference them from the card as shown above.
